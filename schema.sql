@@ -4,7 +4,7 @@ CREATE database employeetracker;
 USE employeetracker;
 
 CREATE TABLE employee (
-  id INT NOT NULL,
+  id INT NOT NULL auto_increment,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   role_id INT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE employeerole (
-  id INT NOT NULL,
+  id INT NOT NULL auto_increment,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL (10,4) NULL,
   department_id INT NOT NULL,
@@ -21,7 +21,15 @@ CREATE TABLE employeerole (
 );
 
 CREATE TABLE department (
-id INT NOT NULL,
+id INT NOT NULL auto_increment,
+deptname VARCHAR(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE manager (
+id INT NOT NULL auto_increment, 
+first_name VARCHAR(25),
+title VARCHAR(30),
 deptname VARCHAR(30) NOT NULL,
 PRIMARY KEY (id)
 );
