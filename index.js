@@ -146,8 +146,8 @@ const runSearch = () => {
         }, {
           name: 'roleId',
           type: 'input',
-          message: 'Please add the role id'
-          // choices: res.map(item => item.title)
+          message: 'Please add the role id',
+          choices: res.map(item => item.title)
         }, {
           name: 'managerId',
           type: 'input',
@@ -162,7 +162,7 @@ const runSearch = () => {
             {
               first_name: response.firstName,
               last_name: response.lastName,
-              // role_id: selectedRole.id
+              role_id: response.id
 
             }, function (err, res) {
               if (err) throw err
