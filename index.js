@@ -43,7 +43,7 @@ const runSearch = () => {
           viewDept();
           break;
 
-        case 'view Employees':
+        case 'view Employee':
           viewEmployee();
           break;
 
@@ -89,38 +89,36 @@ const runSearch = () => {
 
   const viewEmployee = () => {
     let query =
-      'SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, manager.name FROM';
+      'SELECT employee.id, employee.first_name, employee.last_name, employeerole.title FROM '
     query +=
-      'employee LEFT JOIN employee_role ON (employee.id = employee_role.id) LEFT JOIN manager on (employee.manager_id = manager.id)';
+      'employee LEFT JOIN employeerole ON (employee.id = employeerole.id)'
     connection.query(query, (err, res) => {
-      res.forEach(({ id, first_name, last_name, title, name }) => {
-        if (name === null) {
-          name = 'Manager needed'
-        }
+      if (err) throw err;
+      res.forEach(({ id, first_name, last_name, title }) => {
+        // if (name === null) {
+        //   name = 'Manager needed'
+        // }
         console.table([
           {
             ID: `${id}`,
             Name: `${first_name} ${last_name}`,
-            Title: `${title}`,
-            Manager: `${name}`
+            Title: `${title}`
+            // Manager: `${name}`
           }
         ]);
       });
 
       runSearch();
     });
-  }
+  };
 
-
-
-
+  
 
   function viewRoles() {
     connection.query("SELECT * FROM employeerole", (err, res) => {
       if (err) throw err
       console.table(res)
       runSearch()
-
 
     })
   }
@@ -178,8 +176,6 @@ const runSearch = () => {
 
 
   const addDept = () => {
-    connection.query("SELECT * FROM department", (err, res) => {
-      if (err) throw err
       inquirer
         .prompt([{
           name: 'id',
@@ -192,20 +188,21 @@ const runSearch = () => {
         }
 
         ]).then((response) => {
-          const selectedRole = res.find(item => item.title === response.roleId)
-          const query = connection.query("INSERT INTO department SET ?",
+          console.log(response)
+          const query = connection.query
+          ('INSERT INTO department SET ?',
             {
               id: response.id,
-              name: response.department
+              deptname: response.department
 
-            }, function (err, res) {
-              if (err) throw err
+            }, (err, res) => {
+              console.log(err)
               console.log("New department added" + response.department)
 
               runSearch()
             })
         })
-    })
+    
   }
 
 
