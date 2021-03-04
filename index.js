@@ -64,6 +64,10 @@ const runSearch = () => {
           addRole();
           break;
 
+        // case 'update Employee Role':
+        //     updateRole();
+        //     break;
+
         case 'Exit':
           connection.end();
           break;
@@ -151,8 +155,7 @@ const runSearch = () => {
         }, {
           name: 'roleId',
           type: 'input',
-          message: 'Please add the role id',
-          choices: res.map(item => item.title)
+          message: 'Please add the role id number',
         }, {
           name: 'managerId',
           type: 'input',
@@ -162,12 +165,12 @@ const runSearch = () => {
 
         ]).then((response) => {
           console.log(response);
-          res.find(item => item.title === response.roleId)
+          // res.find(item => item.title === response.roleId)
           connection.query("INSERT INTO employee SET ?",
             {
               first_name: response.firstName,
               last_name: response.lastName,
-              role_id: response.title
+              role_id: response.role_id
 
             }, function (err, res) {
               if (err) throw err
@@ -244,6 +247,35 @@ const runSearch = () => {
             })
       })
 
+      // const updateRole = () => {
+      //   inquirer
+      //   .prompt (
+      //     [{
+      //       name
+
+      //     }]
+      //   )
+      //   const query = connection.query(
+      //     'UPDATE products SET ? WHERE ?',
+      //     [
+      //       {
+      //         quantity: 100,
+      //       },
+      //       {
+      //         flavor: 'Rocky Road',
+      //       },
+      //     ],
+      //     (err, res) => {
+      //       if (err) throw err;
+      //       console.log(`${res.affectedRows} products updated!\n`);
+      //       // Call deleteProduct AFTER the UPDATE completes
+      //       deleteProduct();
+      //     }
+      //   );
+      
+      //   // logs the actual query being run
+      //   console.log(query.sql);
+      // }
   }
 
 
