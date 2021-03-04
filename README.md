@@ -35,15 +35,9 @@ NPM install node package, use preferred code reader to run index.js
 
 ---
 
-## Heroku Link 
-
-https://murmuring-oasis-54527.herokuapp.com/
-
----
-
 ## Github Link
 
-https://github.com/vshulman25/LetsTakeNotes
+https://github.com/vshulman25/TrackingEmployees
 
 --
 
