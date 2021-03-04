@@ -34,6 +34,7 @@ const runSearch = () => {
         'view Roles',
         'add Dept',
         'add Employee',
+        'add Role',
         'Exit'
       ],
     })
@@ -57,6 +58,10 @@ const runSearch = () => {
 
         case 'add Employee':
           addEmployee();
+          break;
+
+        case 'add Role':
+          addRole();
           break;
 
         case 'Exit':
@@ -112,7 +117,7 @@ const runSearch = () => {
     });
   };
 
-  
+
 
   function viewRoles() {
     connection.query("SELECT * FROM employeerole", (err, res) => {
@@ -162,7 +167,7 @@ const runSearch = () => {
             {
               first_name: response.firstName,
               last_name: response.lastName,
-              role_id: response.id
+              role_id: response.title
 
             }, function (err, res) {
               if (err) throw err
@@ -176,20 +181,20 @@ const runSearch = () => {
 
 
   const addDept = () => {
-      inquirer
-        .prompt([{
-          name: 'id',
-          type: 'input',
-          message: 'Please add an id for your new department',
-        }, {
-          name: 'department',
-          type: 'input',
-          message: 'Please give a name for your new department',
-        }
+    inquirer
+      .prompt([{
+        name: 'id',
+        type: 'input',
+        message: 'Please add an id for your new department',
+      }, {
+        name: 'department',
+        type: 'input',
+        message: 'Please give a name for your new department',
+      }
 
-        ]).then((response) => {
-          console.log(response)
-          const query = connection.query
+      ]).then((response) => {
+        console.log(response)
+        const query = connection.query
           ('INSERT INTO department SET ?',
             {
               id: response.id,
@@ -197,12 +202,48 @@ const runSearch = () => {
 
             }, (err, res) => {
               console.log(err)
-              console.log("New department added" + response.department)
+              console.log("New department added" + " " + response.department)
 
               runSearch()
             })
-        })
-    
+      })
+    console.table(res)
+  }
+
+  const addRole = () => {
+    inquirer
+      .prompt([{
+        name: 'id',
+        type: 'input',
+        message: 'Please add an id for your new role',
+      }, {
+        name: 'title',
+        type: 'input',
+        message: 'Please give a title for your new role',
+      },
+      {
+        name: 'salary',
+        type: 'input',
+        message: 'Provide a great big salary for your new role',
+      }
+
+      ]).then((response) => {
+        console.log(response)
+        const query = connection.query
+          ('INSERT INTO employeerole SET ?',
+            {
+              id: response.id,
+              title: response.title,
+              salary: response.salary
+
+            }, (err, res) => {
+              console.log(err)
+              console.log("New role added" + " " + response.title)
+
+              runSearch()
+            })
+      })
+
   }
 
 
@@ -211,5 +252,4 @@ const runSearch = () => {
 
 
 
-  console.table();
 };
